@@ -1,0 +1,496 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="Sydney's house" href="http://example.com/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Sydney's house" href="http://example.com/atom.xml" />
+<link rel="alternate" type="application/json" title="Sydney's house" href="http://example.com/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+
+<link rel="canonical" href="http://example.com/2023/07/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89/">
+
+
+
+  <title>
+机器学习笔记（2）：梯度下降 |
+Sydney's home = Sydney's house</title>
+  <script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">机器学习笔记（2）：梯度下降
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="Created: 2023-07-31 19:04:05">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">Posted on</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-07-31T19:04:05+08:00">2023-07-31</time>
+  </span>
+  <span class="item" title="Symbols count in article">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">Symbols count in article</span>
+    <span>1k</span>
+    <span class="text">words</span>
+  </span>
+  <span class="item" title="Reading time">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">Reading time</span>
+    <span>1 mins.</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="Toggle navigation bar">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Sydney's home</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="/2023/07/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89/assets/wallpaper-2-0.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">Home</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="en">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Enemyzero2">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sydney's house">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="机器学习笔记2梯度下降"><a class="markdownIt-Anchor" href="#机器学习笔记2梯度下降">#</a> 机器学习笔记（2）：梯度下降</h1>
+<div class="links"><div class="item" title="吴恩达" style="--block-color:#e9546b;"><span class="exturl image" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMVBhNDExWDc2cz9wPTEzJnZkX3NvdXJjZT00Y2Q1YWFiZDczOGQ3NThjOWVlYmNhMThhMzljMTQwMQ==" data-background-image="/images/404.png"></span>
+          <div class="info">
+          <span class="exturl title" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMVBhNDExWDc2cz9wPTEzJnZkX3NvdXJjZT00Y2Q1YWFiZDczOGQ3NThjOWVlYmNhMThhMzljMTQwMQ==">bilibili</span>
+          <p class="desc">机器学习</p>
+          </div></div></div>
+<h2 id="1-梯度下降法基本原理"><a class="markdownIt-Anchor" href="#1-梯度下降法基本原理">#</a> 1. 梯度下降法基本原理</h2>
+<p><span class="red">梯度下降是一种最优化算法，用于求解无约束最小化问题。它的基本思想是在每一次迭代过程中，以负梯度方向对参数进行更新，这样可以在函数的值上取得最快的下降，也就是最小化损失函数。</span></p>
+<h2 id="2-更新规则"><a class="markdownIt-Anchor" href="#2-更新规则">#</a> 2. 更新规则</h2>
+<p>对于参数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">b</span></span></span></span>，我们可以通过以下的方式进行更新：</p>
+<figure class="highlight markdown"><figcaption data-lang="markdown"></figcaption><table><tr><td data-num="1"></td><td><pre>$$</pre></td></tr><tr><td data-num="2"></td><td><pre>w = w - \alpha \frac&#123;\partial&#123;L&#125;&#125;&#123;\partial&#123;w&#125;&#125;</pre></td></tr><tr><td data-num="3"></td><td><pre>$$</pre></td></tr><tr><td data-num="4"></td><td><pre></pre></td></tr><tr><td data-num="5"></td><td><pre>$$</pre></td></tr><tr><td data-num="6"></td><td><pre>b = b - \alpha \frac&#123;\partial&#123;L&#125;&#125;&#123;\partial&#123;b&#125;&#125;</pre></td></tr><tr><td data-num="7"></td><td><pre>$$</pre></td></tr></table></figure><p><span class="aqua">这里的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>w</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial{L}}{\partial{w}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mtight"><span class="mord mathnormal mtight">L</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>b</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial{L}}{\partial{b}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mtight"><span class="mord mathnormal mtight">b</span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mtight"><span class="mord mathnormal mtight">L</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> 是损失函数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi></mrow><annotation encoding="application/x-tex">L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span></span></span></span> 对参数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">b</span></span></span></span> 的偏导数，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span> 是学习率。</span></p>
+<h2 id="3-更新参数的方式"><a class="markdownIt-Anchor" href="#3-更新参数的方式">#</a> 3. 更新参数的方式</h2>
+<p><ins>更新参数有两种方式：</ins></p>
+<p><mark>- 一种是先计算出临时的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">b</span></span></span></span>，然后再进行赋值。这种方法称为 <strong>Batch Gradient Descent</strong>。</mark></p>
+<p><mark>- 另一种是在计算出一个参数的更新值后，立即进行更新。这种方法称为 <strong>Stochastic Gradient Descent</strong>。</mark></p>
+<h2 id="4-全局最小值和局部最小值"><a class="markdownIt-Anchor" href="#4-全局最小值和局部最小值">#</a> 4. 全局最小值和局部最小值</h2>
+<p><span class="green">梯度下降算法可能会遇到局部最小值的问题，但如果我们的损失函数是凸函数，那么它的任何局部最小值都是全局最小值。在多元函数上，凸函数形状表现为任意两点连线上的任意点，函数值都不会大于这两点函数值的最大值。</span></p>
+<h2 id="5-初始选择的影响"><a class="markdownIt-Anchor" href="#5-初始选择的影响">#</a> 5. 初始选择的影响</h2>
+<p><span class="blue">在开始进行梯度下降法时，如果初始点选择为极大值点，根据公式，该点的梯度为 0，所以迭代无法进行。这告诉我们选择合适的初始化参数非常重要。</span></p>
+<h2 id="6-动态调整学习率"><a class="markdownIt-Anchor" href="#6-动态调整学习率">#</a> 6. 动态调整学习率</h2>
+<p><span class="orange">有一些更高级的梯度下降法可以动态地调整学习率，例如 Adagrad, RMSProp, Adam 等。这些方法在每一次迭代时都会动态地调整学习率，使得梯度下降的过程更加稳定。</span></p>
+<h2 id="7-停止准则"><a class="markdownIt-Anchor" href="#7-停止准则">#</a> 7. 停止准则</h2>
+<ul>
+<li>
+<p><span class="grey">预设最大迭代次数：当达到预设的最大迭代次数时，停止迭代。</span></p>
+</li>
+<li>
+<p><span class="grey">损失变化小于阈值：当连续几次迭代，损失函数的值变化都小于一个预设的阈值时，停止迭代。</span></p>
+</li>
+<li>
+<p><span class="grey">验证集性能下降：当验证集上的性能开始下降时，停止迭代，这是为了避免过拟合。</span></p>
+</li>
+</ul>
+<p><ruby>下面没有别的东西啦<rp>【</rp><rt>❤❤❤❤❤❤❤❤❤</rt><rp>】</rp></ruby>  22<sup>th</sup> 2023.7.31</p>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">Edited on</span>
+    <time title="Modified: 2023-07-31 19:17:13" itemprop="dateModified" datetime="2023-07-31T19:17:13+08:00">2023-07-31</time>
+  </span>
+  <span id="2023/07/31/机器学习笔记（2）/" class="item leancloud_visitors" data-flag-title="机器学习笔记（2）：梯度下降" title="Views">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">Views</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">times</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> Donate</button>
+  <p>Give me a cup of [coffee]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="Enemyzero2 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="Enemyzero2 Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/paypal.png" alt="Enemyzero2 PayPal">
+        <p>PayPal</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>Post author:  </strong>Enemyzero2 <i class="ic i-at"><em>@</em></i>Sydney's house
+  </li>
+  <li class="link">
+    <strong>Post link: </strong>
+    <a href="http://example.com/2023/07/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89/" title="机器学习笔记（2）：梯度下降">http://example.com/2023/07/31/机器学习笔记（2）/</a>
+  </li>
+  <li class="license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/07/29/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;whvn.cc&#x2F;x6p3y3" title="机器学习笔记（1）">
+  <span class="type">Previous Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>机器学习笔记（1）</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="Contents">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="toc-number">1.</span> <span class="toc-text"> 机器学习笔记（2）：梯度下降</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text"> 1. 梯度下降法基本原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9B%B4%E6%96%B0%E8%A7%84%E5%88%99"><span class="toc-number">1.2.</span> <span class="toc-text"> 2. 更新规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%9B%B4%E6%96%B0%E5%8F%82%E6%95%B0%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">1.3.</span> <span class="toc-text"> 3. 更新参数的方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%85%A8%E5%B1%80%E6%9C%80%E5%B0%8F%E5%80%BC%E5%92%8C%E5%B1%80%E9%83%A8%E6%9C%80%E5%B0%8F%E5%80%BC"><span class="toc-number">1.4.</span> <span class="toc-text"> 4. 全局最小值和局部最小值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%88%9D%E5%A7%8B%E9%80%89%E6%8B%A9%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-number">1.5.</span> <span class="toc-text"> 5. 初始选择的影响</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%8A%A8%E6%80%81%E8%B0%83%E6%95%B4%E5%AD%A6%E4%B9%A0%E7%8E%87"><span class="toc-number">1.6.</span> <span class="toc-text"> 6. 动态调整学习率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%81%9C%E6%AD%A2%E5%87%86%E5%88%99"><span class="toc-number">1.7.</span> <span class="toc-text"> 7. 停止准则</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="Related">
+      </div>
+      <div class="overview panel" data-title="Overview">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Enemyzero2"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Enemyzero2</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">6</span>
+        <span class="name">posts</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">2</span>
+        <span class="name">tags</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2VuZW15emVybzI=" title="https:&#x2F;&#x2F;github.com&#x2F;enemyzero2"><i class="ic i-github"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOndkbXpqNjcyOTQzODFAb3V0bG9vay5jb20=" title="mailto:wdmzj67294381@outlook.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>Home</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>Random Posts</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/18/notes/%E6%B5%8B%E8%AF%95%E6%8F%92%E4%BB%B6%E4%B8%93%E7%94%A8%E6%96%87%E7%AB%A0/" title="测试插件专用文章">测试插件专用文章</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/07/29/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89/" title="机器学习笔记（1）">机器学习笔记（1）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/16/%E6%B5%8B%E8%AF%95%E6%8F%92%E4%BB%B6%E4%B8%93%E7%94%A8%E6%96%87%E7%AB%A0/" title="测试插件专用文章">测试插件专用文章</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/18/no_confine_bing/" title="没有限制的bing">没有限制的bing</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/07/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89/" title="机器学习笔记（2）：梯度下降">机器学习笔记（2）：梯度下降</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/23/notes/%E4%B8%AD%E6%96%87%E6%B8%AC%E8%A9%A6/" title="中文測試">中文測試</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>Recent Comments</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Enemyzero2 @ Sydney's home</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="Symbols count total">4k words</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="Reading time total">4 mins.</span>
+  </div>
+  <div class="powered-by">
+    Powered by <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/07/31/机器学习笔记（2）/',
+    favicon: {
+      show: "（●´3｀●）Goooood",
+      hide: "(´Д｀)Booooom"
+    },
+    search : {
+      placeholder: "Search for Posts",
+      empty: "We didn't find any results for the search: ${query}",
+      stats: "${hits} results found in ${time} ms"
+    },
+    valine: true,audio: ["https://music.163.com/song?id=1387098940","https://music.163.com/#/playlist?id=2088001742","https://www.xiami.com/collect/250830668","https://y.qq.com/n/yqq/playsquare/3535982902.html"],fancybox: true,
+    copyright: 'Copied to clipboard successfully! <br> All articles in this blog are licensed under <i class="ic i-creative-commons"></i>BY-NC-SA.',quiz: {
+      choice: "Multiple Choice",
+      multiple: "Multiple Answer",
+      true_false: "True/False",
+      essay: "Questions",
+      gap_fill: "Gap Filling",
+      mistake: "Wrong Answer"
+    },
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
