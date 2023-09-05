@@ -28,12 +28,12 @@
 
   
 
-<link rel="canonical" href="http://example.com/2023/05/16/%E6%B5%8B%E8%AF%95%E6%8F%92%E4%BB%B6%E4%B8%93%E7%94%A8%E6%96%87%E7%AB%A0/">
+<link rel="canonical" href="http://example.com/2023/09/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%EF%BC%884%EF%BC%89/">
 
 
 
   <title>
-测试插件专用文章 |
+机器学习笔记（4）：逻辑回归 |
 Sydney's home = Sydney's house</title>
   <script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
 <meta name="generator" content="Hexo 6.3.0"></head>
@@ -62,23 +62,23 @@ Sydney's home = Sydney's house</title>
         <div id="brand">
           <div class="pjax">
           
-  <h1 itemprop="name headline">测试插件专用文章
+  <h1 itemprop="name headline">机器学习笔记（4）：逻辑回归
   </h1>
   
 <div class="meta">
-  <span class="item" title="Created: 2023-05-16 17:06:54">
+  <span class="item" title="Created: 2023-09-05 15:16:09">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
     <span class="text">Posted on</span>
-    <time itemprop="dateCreated datePublished" datetime="2023-05-16T17:06:54+08:00">2023-05-16</time>
+    <time itemprop="dateCreated datePublished" datetime="2023-09-05T15:16:09+08:00">2023-09-05</time>
   </span>
   <span class="item" title="Symbols count in article">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
     <span class="text">Symbols count in article</span>
-    <span>459</span>
+    <span>560</span>
     <span class="text">words</span>
   </span>
   <span class="item" title="Reading time">
@@ -118,7 +118,14 @@ Sydney's home = Sydney's house</title>
 
       </div>
       <div id="imgs" class="pjax">
-          <img src="/assets/wallpaper-2-0.png">
+        <ul>
+          <li class="item" data-background-image="https://img.timelessq.com/images/2022/07/26/3f20154a69ec2ac89963a3c94445fdd7.jpg"></li>
+          <li class="item" data-background-image="https://img.timelessq.com/images/2022/07/26/7074b57c75454b3ab1aba920a32a5d97.jpg"></li>
+          <li class="item" data-background-image="https://img.timelessq.com/images/2022/07/26/86a28095f8e05aa07544b454ec6f01f6.jpg"></li>
+          <li class="item" data-background-image="https://img.timelessq.com/images/2022/07/26/6edf0eae0c5c58dadd09198c6c3c9f6d.jpg"></li>
+          <li class="item" data-background-image="https://img.timelessq.com/images/2022/07/26/9e00cb8944af8ad12fd6b7fd7eb24ebc.jpg"></li>
+          <li class="item" data-background-image="https://img.timelessq.com/images/2022/07/26/2aaa20665dd5e5704a35cf4f6de766db.jpg"></li>
+        </ul>
       </div>
     </header>
     <div id="waves">
@@ -146,7 +153,7 @@ Sydney's home = Sydney's house</title>
 </div>
 
     <article itemscope itemtype="http://schema.org/Article" class="post block" lang="en">
-  <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/16/%E6%B5%8B%E8%AF%95%E6%8F%92%E4%BB%B6%E4%B8%93%E7%94%A8%E6%96%87%E7%AB%A0/">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%EF%BC%884%EF%BC%89/">
 
   <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="image" content="/images/avatar.jpg">
@@ -161,84 +168,21 @@ Sydney's home = Sydney's house</title>
   <div class="body md" itemprop="articleBody">
     
 
-    <div class="links"><div class="item" title="enemyzero2" style="--block-color:#e9546b;"><span class="exturl image" data-url="aHR0cHM6Ly9naXRodWIuY29tL2VuZW15emVybzIvZ2l0RmFrZXI=" data-background-image="/images/404.png"></span>
+    <h1 id="机器学习笔记4逻辑回归"><a class="markdownIt-Anchor" href="#机器学习笔记4逻辑回归">#</a> 机器学习笔记（4）：逻辑回归</h1>
+<div class="links"><div class="item" title="吴恩达" style="--block-color:#e9546b;"><span class="exturl image" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMVBhNDExWDc2cz9wPTEzJnZkX3NvdXJjZT00Y2Q1YWFiZDczOGQ3NThjOWVlYmNhMThhMzljMTQwMQ==" data-background-image="/images/404.png"></span>
           <div class="info">
-          <span class="exturl title" data-url="aHR0cHM6Ly9naXRodWIuY29tL2VuZW15emVybzIvZ2l0RmFrZXI=">github</span>
-          <p class="desc">gitfaker项目</p>
+          <span class="exturl title" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMVBhNDExWDc2cz9wPTEzJnZkX3NvdXJjZT00Y2Q1YWFiZDczOGQ3NThjOWVlYmNhMThhMzljMTQwMQ==">bilibili</span>
+          <p class="desc">机器学习</p>
           </div></div></div>
-<ol start="3">
-<li class="quiz">下列叙述正确的是 <span class="gap"></span> 。
-<ul class="options">
-<li>虚函数只能定义成无参函数</li>
-<li>虚函数不能有返回值</li>
-<li>能定义虚构造函数</li>
-<li class="correct">A、B、C 都不对</li>
-</ul>
-</li>
-</ol>
-<p><ins>下划线</ins><br>
-<ins class="wavy">波浪线</ins><br>
-<ins class="dot">着重点</ins><br>
-<ins class="primary">紫色下划线</ins><br>
-<ins class="wavy success">绿色波浪线</ins><br>
-<ins class="dot warning">黄色着重点</ins><br>
-～～删除线～～<br>
-~~ 红色删除线～～{.danger}<br>
-<mark> 荧光高亮</mark><br>
-<span class="rainbow">赤橙黄绿青蓝紫</span><br>
-<span class="red">红色</span><br>
-<span class="pink">粉色</span><br>
-<span class="orange">橙色</span><br>
-<span class="yellow">黄色</span><br>
-<span class="green">绿色</span><br>
-<span class="aqua">靛青</span><br>
-<span class="blue">蓝色</span><br>
-<span class="purple">紫色</span><br>
-<span class="grey">灰色</span><br>
-快捷键 <span class="kbd">Ctrl</span> + <span class="kbd red">C</span><br>
-H<sub>2</sub>0<br>
-29<sup>th</sup></p>
-<p><mark>相信你也看到了</mark>，没错哒，<span>本文章仅限于测试插件，无需回复内容</span><ruby>.aqua}<rt></rt> 所<rp>【</rp><rt>th^</rt><rp>】</rp>以<rp>【</rp><rt>2023</rt><rp>】</rp>说<rp>【</rp><rt>5</rt><rp>】</rp>嘛<rp>【</rp><rt>16</rt><rp>】</rp>，
- [<rt></rt>小<rp>【</rp><rt>!!</rt><rp>】</rp>朋<rp>【</rp><rt>没啥好看的！！</rt><rp>】</rp>友<rp>【</rp><rt>!!</rt><rp>】</rp>快走<rp>【</rp><rt>不用</rt><rp>】</rp>，<rt></rt>这里不是你该<rp>【</rp><rt>再看了！！{</rt><rp>】</rp>带的地方<rp>【</rp><rt>bulr</rt><rp>】</rp>]{.pink} 
- [edited in]{.green}      22<rt></rt></ruby><br>
-<span class="label.warning">warning</span></p>
-<div class="note danger">
-<p>你还看什么呀～～～</p>
-</div>
-<div class="tab" data-id="id1" data-title="卡片1">
-<p>这里是卡片一的内容<br>
-<strong>加粗</strong><br>
-<em>真没啥了</em></p>
-</div>
-<div class="tab" data-id="id1" data-title="卡片2">
-<p>这里是卡片二的内容</p>
-<div class="note danger">
-<p>你好怪哦，都看到这里了</p>
-</div>
-<p><ins>下划线</ins><br>
-<ins class="wavy">波浪线</ins><br>
-<ins class="dot">着重点</ins><br>
-<ins class="primary">紫色下划线</ins><br>
-<ins class="wavy success">绿色波浪线</ins><br>
-<ins class="dot warning">黄色着重点</ins><br>
-～～删除线～～<br>
-~~ 红色删除线～～{.danger}<br>
-<mark> 荧光高亮</mark><br>
-<span class="rainbow">赤橙黄绿青蓝紫</span><br>
-<span class="red">红色</span><br>
-<span class="pink">粉色</span><br>
-<span class="orange">橙色</span><br>
-<span class="yellow">黄色</span><br>
-<span class="green">绿色</span><br>
-<span class="aqua">靛青</span><br>
-<span class="blue">蓝色</span><br>
-<span class="purple">紫色</span><br>
-<span class="grey">灰色</span><br>
-快捷键 <span class="kbd">Ctrl</span> + <span class="kbd red">C</span><br>
-H<sub>2</sub>0<br>
-29<sup>th</sup></p>
-</div>
-<p><ruby>下面没有别的东西啦<rp>【</rp><rt>❤❤❤❤❤❤❤❤❤</rt><rp>】</rp></ruby></p>
+<h2 id="1-名字的由来logistic-regression"><a class="markdownIt-Anchor" href="#1-名字的由来logistic-regression">#</a> 1. 名字的由来（logistic regression）</h2>
+<p><span class="red">逻辑回归一词中带有 regression，我们可能会认为他是回归问题，但是并不是，他是分类问题，仅仅是因为它使用了回归方程并利用 sigmoid 方程转换为二元输出作为回归问题的解决方案</span></p>
+<h3 id="1-sigmoid-function"><a class="markdownIt-Anchor" href="#1-sigmoid-function">#</a> 1. sigmoid function</h3>
+<figure class="highlight markdown"><figcaption data-lang="markdown"></figcaption><table><tr><td data-num="1"></td><td><pre>\sigma(x) = \frac&#123;1&#125;&#123;1 + e^&#123;-x&#125;&#125;</pre></td></tr></table></figure><p><span class="purple">他的函数图像大致如下</span><br>
+<img data-src="http://s0i5ooi4a.hb-bkt.clouddn.com/sigmoid_function_plot%20%281%29.png" alt="" title="sigmoid function"></p>
+<figure class="highlight scss"><figcaption data-lang="Sass (Scss)"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">// Sigmoid function: σ(z) = 1 / (1 + e^(-z))</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token property"><span class="token variable">$sigmoid-function</span></span><span class="token punctuation">:</span> <span class="token string">"sigma(z) = 1 / (1 + e^(-z))"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token comment">// Function f as parameter z for sigmoid: z = w . x + b</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token property"><span class="token variable">$function-f</span></span><span class="token punctuation">:</span> <span class="token string">"z = w . x + b"</span><span class="token punctuation">;</span></pre></td></tr></table></figure><h3 id="2-决策边界"><a class="markdownIt-Anchor" href="#2-决策边界">#</a> 2. 决策边界</h3>
+<p><span class="orange">在建立完函数模型后，我们需要决定在这个函数中，什么情况会被判定为 1（true）和 0（false）</span><br>
+<span class="pink">常见的判定方法就是 0.5，意思是当</span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mi mathvariant="normal">/</mi><mi>c</mi><mi>d</mi><mi>o</mi><mi>t</mi><mi>x</mi><mo>+</mo><mi>b</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">w/cdotx + b &gt;0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord">/</span><span class="mord mathnormal">c</span><span class="mord mathnormal">d</span><span class="mord mathnormal">o</span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> == z &gt; 0 == sigmoid f(z)&gt;0.5 <span class="pink">我们判定该参数为 true</span><br>
+<span class="blue"> 通俗来讲，决策边界就是一条线（可能是曲线）这条线代表 z=w*x+b=0</span></p>
 
   </div>
 
@@ -250,9 +194,9 @@ H<sub>2</sub>0<br>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">Edited on</span>
-    <time title="Modified: 2023-07-31 21:21:17" itemprop="dateModified" datetime="2023-07-31T21:21:17+08:00">2023-07-31</time>
+    <time title="Modified: 2023-09-05 16:32:53" itemprop="dateModified" datetime="2023-09-05T16:32:53+08:00">2023-09-05</time>
   </span>
-  <span id="2023/05/16/测试插件专用文章/" class="item leancloud_visitors" data-flag-title="测试插件专用文章" title="Views">
+  <span id="2023/09/05/机器学习笔记-逻辑回归（4）/" class="item leancloud_visitors" data-flag-title="机器学习笔记（4）：逻辑回归" title="Views">
       <span class="icon">
         <i class="ic i-eye"></i>
       </span>
@@ -294,7 +238,7 @@ H<sub>2</sub>0<br>
   </li>
   <li class="link">
     <strong>Post link: </strong>
-    <a href="http://example.com/2023/05/16/%E6%B5%8B%E8%AF%95%E6%8F%92%E4%BB%B6%E4%B8%93%E7%94%A8%E6%96%87%E7%AB%A0/" title="测试插件专用文章">http://example.com/2023/05/16/测试插件专用文章/</a>
+    <a href="http://example.com/2023/09/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%EF%BC%884%EF%BC%89/" title="机器学习笔记（4）：逻辑回归">http://example.com/2023/09/05/机器学习笔记-逻辑回归（4）/</a>
   </li>
   <li class="license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> unless stating additionally.
@@ -313,22 +257,14 @@ H<sub>2</sub>0<br>
     <div class="item left">
       
 
-  <a href="/2013/12/25/gallery-post/" itemprop="url" rel="prev" data-background-image="&#x2F;assets&#x2F;wallpaper-2572384.jpg" title="Gallery Post">
+  <a href="/2023/08/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;img.timelessq.com&#x2F;images&#x2F;2022&#x2F;07&#x2F;26&#x2F;0a8c679b59d7b4a6f86d891282323a50.jpg" title="机器学习笔记（2）：梯度下降">
   <span class="type">Previous Post</span>
   <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>Gallery Post</h3>
+  <h3>机器学习笔记（2）：梯度下降</h3>
   </a>
 
     </div>
     <div class="item right">
-      
-
-  <a href="/2023/05/18/no_confine_bing/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;img.timelessq.com&#x2F;images&#x2F;2022&#x2F;07&#x2F;26&#x2F;1eaf2713d4a30c9691c9eaf4f898e499.jpg" title="没有限制的bing">
-  <span class="type">Next Post</span>
-  <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>没有限制的bing</h3>
-  </a>
-
     </div>
 </div>
 
@@ -345,6 +281,7 @@ H<sub>2</sub>0<br>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="Contents">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92"><span class="toc-number">1.</span> <span class="toc-text"> 机器学习笔记（4）：逻辑回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%90%8D%E5%AD%97%E7%9A%84%E7%94%B1%E6%9D%A5logistic-regression"><span class="toc-number">1.1.</span> <span class="toc-text"> 1. 名字的由来（logistic regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-sigmoid-function"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 1. sigmoid function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%86%B3%E7%AD%96%E8%BE%B9%E7%95%8C"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 2. 决策边界</span></a></li></ol></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="Related">
       </div>
@@ -392,12 +329,10 @@ H<sub>2</sub>0<br>
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/2013/12/25/gallery-post/" rel="prev" title="Previous Post"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
-        <a href="/2023/05/18/no_confine_bing/" rel="next" title="Next Post"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -421,42 +356,6 @@ H<sub>2</sub>0<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2013/12/25/gallery-post/" title="Gallery Post">Gallery Post</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/08/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89/" title="机器学习笔记（2）：梯度下降">机器学习笔记（2）：梯度下降</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/18/notes/%E6%B5%8B%E8%AF%95%E6%8F%92%E4%BB%B6%E4%B8%93%E7%94%A8%E6%96%87%E7%AB%A0/" title="测试插件专用文章">测试插件专用文章</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/07/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89/" title="机器学习笔记（2）：梯度下降">机器学习笔记（2）：梯度下降</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
     <span><a href="/2023/05/18/no_confine_bing/" title="没有限制的bing">没有限制的bing</a></span>
   </li>
 
@@ -466,16 +365,7 @@ H<sub>2</sub>0<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/07/29/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89/" title="机器学习笔记（1）">机器学习笔记（1）</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/23/notes/%E4%B8%AD%E6%96%87%E6%B8%AC%E8%A9%A6/" title="中文測試">中文測試</a></span>
+    <span><a href="/2023/05/16/%E6%B5%8B%E8%AF%95%E6%8F%92%E4%BB%B6%E4%B8%93%E7%94%A8%E6%96%87%E7%AB%A0/" title="测试插件专用文章">测试插件专用文章</a></span>
   </li>
 
       
@@ -493,7 +383,52 @@ H<sub>2</sub>0<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/16/%E6%B5%8B%E8%AF%95%E6%8F%92%E4%BB%B6%E4%B8%93%E7%94%A8%E6%96%87%E7%AB%A0/" title="测试插件专用文章">测试插件专用文章</a></span>
+    <span><a href="/2023/07/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89/" title="机器学习笔记（2）：梯度下降">机器学习笔记（2）：梯度下降</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/07/29/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89/" title="机器学习笔记（1）">机器学习笔记（1）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2013/12/25/gallery-post/" title="Gallery Post">Gallery Post</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/23/notes/%E4%B8%AD%E6%96%87%E6%B8%AC%E8%A9%A6/" title="中文測試">中文測試</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/18/notes/%E6%B5%8B%E8%AF%95%E6%8F%92%E4%BB%B6%E4%B8%93%E7%94%A8%E6%96%87%E7%AB%A0/" title="测试插件专用文章">测试插件专用文章</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/08/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89/" title="机器学习笔记（2）：梯度下降">机器学习笔记（2）：梯度下降</a></span>
   </li>
 
   </ul>
@@ -536,7 +471,7 @@ H<sub>2</sub>0<br>
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: '2023/05/16/测试插件专用文章/',
+    path: '2023/09/05/机器学习笔记-逻辑回归（4）/',
     favicon: {
       show: "（●´3｀●）Goooood",
       hide: "(´Д｀)Booooom"
